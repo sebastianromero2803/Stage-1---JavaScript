@@ -21,7 +21,7 @@ async function getData() {
 
 async function FilterByArticleType(filterBy, value) {
   await getData();
-  let articles = docs.filter((article) => article[filterBy] == value);
+  let articles = docs.filter((article) => article[filterBy] != value);
 
   for (let i = 0; i < articles.length; i++) console.log(articles[i]);
 }
@@ -35,10 +35,11 @@ async function AuthorsScoreGreater(valueGreaterThan) {
   await getData();
   let articles = docs.filter((article) => article.score > valueGreaterThan);
 
-  for (let i = 0; i < articles.length; i++) {
-    console.log(articles[i]);
-    for (let j = 0; j < articles[i].author_display.length; j++)
-      console.log(articles[i].author_display[j]);
+  let authors = articles.map((x) => {
+    return { author_display: x.author_display };
+  });
+  for (let i = 0; i < authors.length; i++) {
+    console.log(authors[i]);
   }
 }
 //AuthorsScoreGreater(6);
@@ -72,9 +73,9 @@ async function GetArticleUpdateType() {
 async function ConcatJournals() {
   await getData();
   let articlesJournals = Array.from(
-    new Set(docs.map((article) => article.journal.toLowerCase()))
+    new Set(docs.map((article) => article.journal.toUpperCase()))
   );
-  console.log(articlesJournals);
+  console.log(articlesJournals.join(' '));
 }
 //ConcatJournals();
 
