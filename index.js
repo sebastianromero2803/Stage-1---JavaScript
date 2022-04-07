@@ -161,7 +161,7 @@ async function ConcatArray() {
     docs.splice(docs.length, 0, arrayToAdd[i]);
   console.log(docs);
 }
-//ConcatArray();
+ConcatArray();
 
 /* 9. Develop a function that takes the odd positions of the given array "docs" then with the new
       array obtained it must be modified so that the list of objects has the following format.
